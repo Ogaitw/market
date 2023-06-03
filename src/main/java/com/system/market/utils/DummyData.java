@@ -18,7 +18,7 @@ public class DummyData {
     @Autowired
     MarketRepository marketRepository;
 
-    @PostConstruct
+//    @PostConstruct
     public void savePosts(){
 
         List<Employee> employeeList = new ArrayList<>();

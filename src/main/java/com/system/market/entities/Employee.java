@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 
@@ -14,7 +15,7 @@ import lombok.Setter;
 @Table (name = "MK_POST")
 public class Employee {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy =  GenerationType.AUTO)
     private Long id;
     @NotBlank
     private String name;
