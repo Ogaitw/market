@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.Date;
+
 
 @Setter
 @Getter
@@ -12,28 +14,25 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode (of = "id")
-@Table (name = "EP_POSt")
-public class Employee {
+@Table (name = "PT_POST")
+public class Product {
     @Id
     @GeneratedValue (strategy =  GenerationType.IDENTITY)
     private Long id;
     @NotBlank
     private String name;
     @NotBlank
-    private String email;
+    private Double preco;
     @NotNull
-    private Long cpf;
-    @NotBlank
-    private  String shift;
+    private Date validade;
     @NotNull
-    private Long phone;
+    private Long quantidade;
 
-    public Employee(EmployeeRequestDTO data) {
+    public Product(ProductRequestDTO data) {
         this.name = data.name();
-        this.email = data.email();
-        this.cpf = data.cpf();
-        this.shift = data.shift();
-        this.phone = data.phone();
+        this.preco = data.preco();
+        this.validade = data.validade();
+        this.quantidade = data.quantidade();
 
     }
 

@@ -3,7 +3,7 @@ package com.system.market.controller;
 import com.system.market.entities.Employee;
 import com.system.market.entities.EmployeeRequestDTO;
 import com.system.market.entities.EmployeeResponseDTO;
-import com.system.market.repository.MarketRepository;
+import com.system.market.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    MarketRepository marketRepository;
+    EmployeeRepository marketRepository;
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<EmployeeResponseDTO> getAll() {
