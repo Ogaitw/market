@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("Employee")
+@RequestMapping("employee")
 public class EmployeeController {
 
     @Autowired
@@ -31,9 +31,9 @@ public class EmployeeController {
     }
     @DeleteMapping("/id/{id}")
     public ResponseEntity<Employee> deleteID(@PathVariable Long id ) {
-        var product = employeeRepository.findById(id);
-        employeeRepository.delete(product.get());
-        return ResponseEntity.ok().body(product.get());
+        var employee = employeeRepository.findById(id);
+        employeeRepository.delete(employee.get());
+        return ResponseEntity.ok().body(employee.get());
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
