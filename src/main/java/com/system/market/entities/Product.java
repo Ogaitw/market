@@ -21,7 +21,7 @@ public class Product {
     private Long id;
     @NotBlank
     private String name;
-    @NotBlank
+    @NotNull
     private Double preco;
     @NotNull
     private Date validade;
