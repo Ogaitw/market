@@ -21,12 +21,19 @@ public class ProductController {
         List<ProductResponseDTO> productlist = producRepository.findAll().stream().map(ProductResponseDTO::new).toList();
         return productlist;
     }
-
-    @GetMapping("/name/{name}")
-    public Optional<Product> findByname(@PathVariable String name ) {
-        Optional<Product> getName = producRepository.findByName(name);
-        return getName;
+//    @CrossOrigin(origins = "*", allowedHeaders = "*")
+//    @GetMapping("/name/{name}")
+//    public Optional<Product> findByname(@PathVariable String name ) {
+//        Optional<Product> getName = producRepository.findByName(name);
+//        return getName;
+//    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/id/{id}")
+    public Optional<Product> findById(@PathVariable Long id ) {
+        Optional<Product> getId = producRepository.findById(id);
+        return getId;
     }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/id/{id}")
     public  ResponseEntity<Product>  deleteID(@PathVariable Long id ) {
         var product = producRepository.findById(id);
@@ -41,4 +48,33 @@ public class ProductController {
         producRepository.save(productData);
          
     }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Product> updateEmployee(@PathVariable Long id, @RequestBody ProductRequestDTO data) {
+        Optional<Product> optionalEmployee = producRepository.findById(id);
+
+        if (optionalEmployee.isPresent()) {
+            Product product = optionalEmployee.get();
+
+            if (data.name() != null) {
+                product.setName(data.name());
+            }
+            if (data.preco()!= null) {
+                product.setPreco(data.preco());
+            }
+            if (data.validade()!= null) {
+                product.setValidade(data.validade());
+            }
+            if (data.quantidade()!= null) {
+                product.setQuantidade(data.quantidade());
+            }
+
+            producRepository.save(product);
+
+            return ResponseEntity.ok().body(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

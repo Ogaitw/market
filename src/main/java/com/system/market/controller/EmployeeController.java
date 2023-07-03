@@ -23,12 +23,13 @@ public class EmployeeController {
         List<EmployeeResponseDTO> employeeList = employeeRepository.findAll().stream().map(EmployeeResponseDTO::new).toList();
         return employeeList;
     }
-
-    @GetMapping("/cpf/{cpf}")
-    public Optional<Employee> findByCpf(@PathVariable Long cpf ) {
-        Optional<Employee> getCpf = employeeRepository.findByCpf(cpf);
-        return getCpf;
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/id/{id}")
+    public Optional<Employee> findByID(@PathVariable Long id ) {
+        Optional<Employee> getid = employeeRepository.findById(id);
+        return getid;
     }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/id/{id}")
     public ResponseEntity<Employee> deleteID(@PathVariable Long id ) {
         var employee = employeeRepository.findById(id);
@@ -42,5 +43,36 @@ public class EmployeeController {
         Employee employeeData = new Employee(data);
         employeeRepository.save(employeeData);
          
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequestDTO data) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+
+        if (optionalEmployee.isPresent()) {
+            Employee employee = optionalEmployee.get();
+
+            if (data.name() != null) {
+                employee.setName(data.name());
+            }
+            if (data.email()!= null) {
+                employee.setEmail(data.email());
+            }
+            if (data.cpf()!= null) {
+                employee.setCpf(data.cpf());
+            }
+            if (data.shift()!= null) {
+                employee.setShift(data.shift());
+            }
+            if (data.phone()!= null) {
+                employee.setPhone(data.phone());
+            }
+            employeeRepository.save(employee);
+
+            return ResponseEntity.ok().body(employee);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
